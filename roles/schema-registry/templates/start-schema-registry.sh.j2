@@ -73,11 +73,7 @@ export GC_LOG_ENABLED="true"
 # export JMX_PORT="" 
 # JMX를 통해 원격으로 JVM 상태를 모니터링하기 위한 설정
 # 인증 없이 SSL 없이 JMX를 활성화하겠다는 의미
-SCHEMA_REGISTRY_JMX_OPTS="${SCHEMA_REGISTRY_JMX_OPTS} -Dcom.sun.management.jmxremote"
-SCHEMA_REGISTRY_JMX_OPTS="${SCHEMA_REGISTRY_JMX_OPTS} -Dcom.sun.management.jmxremote.authenticate=false"
-SCHEMA_REGISTRY_JMX_OPTS="${SCHEMA_REGISTRY_JMX_OPTS} -Dcom.sun.management.jmxremote.ssl=false"
-# 해당 설정을 자식 프로세스에 전달
-export SCHEMA_REGISTRY_JMX_OPTS
+export SCHEMA_REGISTRY_JMX_OPTS="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false"
 
 
 ### log4j

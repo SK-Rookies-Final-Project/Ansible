@@ -28,11 +28,17 @@
     enabled: true       # 부팅 시 자동 시작
 
 # 4. JDK 설치 - 파일 다운로드
-- name: Download JDK file using wget
-  # get_url 모듈을 사용해서 JDK 압축 파일을 지정된 경로(/home/ubuntu)에 다운로드
-  get_url:
-    url: https://download.java.net/java/GA/jdk17.0.2/dfd4a8d0985749f896bed50d7138ee7f/8/GPL/openjdk-17.0.2_linux-x64_bin.tar.gz
-    dest: /home/ubuntu/openjdk-17.0.2_linux-x64_bin.tar.gz
+- name: Download JDK using wget
+  shell: >
+    wget -O /home/ubuntu/openjdk-17.0.2_linux-x64_bin.tar.gz
+    https://download.java.net/java/GA/jdk17.0.2/dfd4a8d0985749f896bed50d7138ee7f/8/GPL/openjdk-17.0.2_linux-x64_bin.tar.gz
+  args:
+    creates: /home/ubuntu/openjdk-17.0.2_linux-x64_bin.tar.gz
+#- name: Download JDK file using wget
+#  # get_url 모듈을 사용해서 JDK 압축 파일을 지정된 경로(/home/ubuntu)에 다운로드
+#  get_url:
+#    url: https://download.java.net/java/GA/jdk17.0.2/dfd4a8d0985749f896bed50d7138ee7f/8/GPL/openjdk-17.0.2_linux-x64_bin.tar.gz
+#    dest: /home/ubuntu/openjdk-17.0.2_linux-x64_bin.tar.gz
 
 # 5. JDK 압축 해제
 - name: Extract JDK
@@ -102,13 +108,17 @@
     - /engn
 
 # 11. 컨플루언트 플랫폼 스크립트 압축파일을 get-url 모듈을 통해 설치
-- name: Download Confluent Platform archive
-  get_url:
-    # 해당 url의 파일을
-    url: https://packages.confluent.io/archive/7.7/confluent-7.7.1.tar.gz
-    # /engn 경로에 confluent-7.7.1.tar.gz 파일명으로 설치
-    dest: /engn/confluent-7.7.1.tar.gz
-
+- name: Download Confluent Platform archive using wget
+  shell: >
+    wget -O /engn/confluent-7.7.1.tar.gz https://packages.confluent.io/archive/7.7/confluent-7.7.1.tar.gz
+  args:
+    creates: /engn/confluent-7.7.1.tar.gz
+#- name: Download Confluent Platform archive
+#  get_url:
+#    # 해당 url의 파일을
+#    url: https://packages.confluent.io/archive/7.7/confluent-7.7.1.tar.gz
+#    # /engn 경로에 confluent-7.7.1.tar.gz 파일명으로 설치
+#    dest: /engn/confluent-7.7.1.tar.gz
 
 # 12. 위에서 받은 압축 파일을 unarchive 모듈을 통해 /engn에 압축 해제(파일이 존재하면 덮어쓰기)
 - name: Extract Confluent Platform archive
